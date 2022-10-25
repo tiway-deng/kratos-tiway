@@ -61,7 +61,9 @@ func (uc *UserUsecase) List(ctx context.Context, ureq *UserListReq) ([]*User, in
 }
 
 func (uc *UserUsecase) UserByMobile(ctx context.Context, mobile string) (*User, error) {
-	return uc.repo.UserByMobile(ctx, mobile)
+	loginResp,err :=  uc.repo.UserByMobile(ctx, mobile)
+	uc.log.WithContext(ctx).Infof("手机查询返回: %v", loginResp)
+	return loginResp,err
 }
 
 func (uc *UserUsecase) UserByNickname(ctx context.Context, nickname string) (*User, error) {
